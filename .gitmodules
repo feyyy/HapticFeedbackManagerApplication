@@ -1,0 +1,4 @@
+[submodule "HapticFeedbackManagerApplication/Assets/Submodules/MobgeHapticController"]
+	path = HapticFeedbackManagerApplication/Assets/Submodules/MobgeHapticController
+	url = https://github.com/feyyy/MobgeHapticController
+	branch = master
