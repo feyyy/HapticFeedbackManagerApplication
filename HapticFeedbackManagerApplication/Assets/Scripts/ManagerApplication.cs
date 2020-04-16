@@ -48,6 +48,8 @@ namespace HapticFeedback {
             Manager.iOSReleaseHaptics();
         }
 
+
+        #region Vibration calls
         /// <summary>
         /// The following methods are bound (via the inspector) to buttons in the demo scene, and will call the corresponding vibration methods
         /// </summary>
@@ -59,14 +61,9 @@ namespace HapticFeedback {
             Handheld.Vibrate();
 #endif
         }
+        
 
-        /// <summary>
-        /// Triggers the default Vibrate method, which will result in a medium vibration on Android and a medium impact on iOS
-        /// </summary>
-        public void TriggerVibrate() {
-            Manager.Vibrate();
-        }
-
+        
         /// <summary>
         /// Triggers the selection haptic feedback, a light vibration on Android, and a light impact on iOS
         /// </summary>
@@ -115,5 +112,8 @@ namespace HapticFeedback {
         public void TriggerHeavyImpact() {
             Manager.Haptic(HapticTypes.HeavyImpact);
         }
+        #endregion
     }
 }
+
+
