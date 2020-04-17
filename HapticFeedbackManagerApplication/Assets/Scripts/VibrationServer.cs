@@ -44,8 +44,6 @@ namespace HapticFeedback {
                 _threshold = (float) double.Parse(request.QueryString.Get("t"));
                 s.SendResponse("Updated threshold to: " + _threshold + "  " + DateTime.Now, response);
             });
-
-
             s.Start(port);
         }
 
@@ -77,6 +75,10 @@ namespace HapticFeedback {
                     amplitudes[i] = (int) (255 * normalizedAmp);
                     durations[i] = (long) (time * 1000);
                 }
+            }
+            
+            for (int i = 0; i < amplitudes.Length; i ++) {
+                Debug.Log("ampl: " + amplitudes[i] + "dura: " + durations[i]);
             }
         }
     }
