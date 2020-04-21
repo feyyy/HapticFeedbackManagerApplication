@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using AutoDiscovery;
 using UnityEngine;
 using Mobge.Test;
 using UnityEngine.UI;
@@ -12,12 +13,15 @@ namespace HapticFeedback {
         [SerializeField] private Text IPText;
 
         private Manager.HapticPattern _pattern;
-        private static float _threshold = 0.1f;
-
+        private Server _autoDiscoveryServer;
 
         public void Awake() {
             StartVibrationServer();
             IPText.text = DiscoverLocalIP();
+            _autoDiscoveryServer = new Server("VibeServer", port) {
+                // ServerData = "Server on " + Dns.GetHostName()
+            };
+            _autoDiscoveryServer.Start();
         }
 
         private string DiscoverLocalIP() {
@@ -34,18 +38,15 @@ namespace HapticFeedback {
         private void StartVibrationServer() {
             var s = HttpCommandListener.Shared;
             s.RegisterMethod("vibrate", (request, response) => {
-                _pattern = Parse.VibrationQuery(request, _threshold);
+                _pattern = Parse.VibrationQuery(request);
                 Manager.CustomHaptic(_pattern);
                 s.SendResponse("Sent vibration " + DateTime.Now, response);
-            });
-
-            s.RegisterMethod("update_threshold", (request, response) => {
-                _threshold = (float) double.Parse(request.QueryString.Get("t"));
-                s.SendResponse("Updated threshold to: " + _threshold + "  " + DateTime.Now, response);
             });
             s.Start(port);
         }
 
-
+        private void OnDestroy() {
+            _autoDiscoveryServer.Stop();
+        }
     }
 }
