@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.mobge.dependencyresolver": "https://github.com/eskimosehir/DependencyResolver.git#package",
     "com.unity.addressables": "1.1.10",
     "com.unity.collab-proxy": "1.2.16",
     "com.unity.ide.rider": "1.1.4",
@@ -40,11 +39,5 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  },
-  "lock": {
-    "com.mobge.dependencyresolver": {
-      "revision": "package",
-      "hash": "dab0ac22c51d790403151d53798a534fa4693209"
-    }
   }
 }
