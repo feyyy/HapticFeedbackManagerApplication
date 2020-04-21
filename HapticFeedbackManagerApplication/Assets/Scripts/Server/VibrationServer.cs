@@ -16,7 +16,7 @@ namespace HapticFeedback {
         private Server _autoDiscoveryServer;
 
         public void Awake() {
-            StartVibrationServer();
+            StartVibrationServer(defaultToRegularVibrate: true);
             IPText.text = DiscoverLocalIP();
             _autoDiscoveryServer = new Server("VibeServer", port) {
                 // ServerData = "Server on " + Dns.GetHostName()
@@ -35,11 +35,11 @@ namespace HapticFeedback {
             return localIp.ToString();
         }
 
-        private void StartVibrationServer() {
+        private void StartVibrationServer(bool defaultToRegularVibrate = false) {
             var s = HttpCommandListener.Shared;
             s.RegisterMethod("vibrate", (request, response) => {
                 _pattern = Parse.VibrationQuery(request);
-                Manager.CustomHaptic(_pattern);
+                Manager.CustomHaptic(_pattern, defaultToRegularVibrate);
                 s.SendResponse("Sent vibration " + DateTime.Now, response);
             });
             s.Start(port);
